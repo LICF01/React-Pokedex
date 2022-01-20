@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 // components
 import Card from './components/Card';
 
@@ -8,19 +10,61 @@ const ditto = {
 	name: 'ditto',
 	id: 132,
 	img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/132.png',
-	color: 'purple'
+	color: 'purple',
 };
 
 function App() {
+	const [data, setData] = useState(null);
+	const [isPending, setIsPending] = useState(false);
+	const [error, setError] = useState(null);
+	const [allPokemons, setAllPokemons] = useState([]);
+	const [loadMore, setLoadMore] = useState(
+		'https://pokeapi.co/api/v2/pokemon/'
+	);
+
+	const getAllPokemons = async () => {
+		setIsPending(true);
+		try {
+			const res = await fetch(loadMore);
+
+			if (!res.ok) {
+				throw new Error(res.statusText);
+			}
+
+			const data = await res.json();
+
+			data.results.forEach(async (pokemon) => {
+				const res = await fetch(pokemon.url);
+				const data = await res.json();
+				setAllPokemons((pokemons) => [...pokemons, data]);
+			});
+
+			setData(data);
+			setIsPending(false);
+			setError(null);
+		} catch (error) {
+			setError(error.message);
+			setIsPending(false);
+		}
+	};
+
+	useEffect(() => {
+		getAllPokemons();
+	}, []);
+
+	console.log(allPokemons);
+
 	return (
 		<div className='App'>
-			<Card
-				name={ditto.name}
-				img={ditto.img}
-				number={ditto.id}
-				key={ditto.id}
-				color={ditto.color}
-			/>
+			{allPokemons.map((pokemon) => (
+				<Card
+					name={pokemon.name}
+					img={pokemon.sprites.other.dream_world.front_default}
+					number={pokemon.id}
+					types={pokemon.types}
+					key={pokemon.id}
+				/>
+			))}
 		</div>
 	);
 }
