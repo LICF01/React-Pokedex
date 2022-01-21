@@ -33,11 +33,12 @@ function App() {
 
 			const data = await res.json();
 
-			data.results.forEach(async (pokemon) => {
+			for await (const pokemon of data.results) {
 				const res = await fetch(pokemon.url);
 				const data = await res.json();
 				setAllPokemons((pokemons) => [...pokemons, data]);
-			});
+				
+			}
 
 			setData(data);
 			setIsPending(false);
@@ -56,15 +57,19 @@ function App() {
 
 	return (
 		<div className='App'>
-			{allPokemons.map((pokemon) => (
-				<Card
-					name={pokemon.name}
-					img={pokemon.sprites.other.dream_world.front_default}
-					number={pokemon.id}
-					types={pokemon.types}
-					key={pokemon.id}
-				/>
-			))}
+			<h1>Pokédex</h1>
+			<p>Search for a Pokémon by name or by its Pokédex number</p>
+			<div className='card-grid'>
+				{allPokemons.map((pokemon) => (
+					<Card
+						name={pokemon.name}
+						img={pokemon.sprites.other["official-artwork"].front_default}
+						number={pokemon.id}
+						types={pokemon.types}
+						key={pokemon.id}
+					/>
+				))}
+			</div>
 		</div>
 	);
 }
