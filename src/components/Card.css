@@ -1,0 +1,22 @@
+.card {
+	width: 200px;
+	padding: 1rem 0.5rem;
+	margin: 1rem;
+	border-radius: 10%;
+}
+
+.card-img img {
+	height: 10rem;
+}
+
+.card-name {
+	font-weight: 500;
+	text-transform: capitalize;
+	font-size: 1.3rem;
+	margin-bottom: 5px;
+}
+
+.card-number {
+	font-weight: 300;
+	margin-top: 0;
+}
