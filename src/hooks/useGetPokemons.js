@@ -4,7 +4,6 @@ function useGetPokemons(url) {
 	const [isPending, setIsPending] = useState(false);
 	const [error, setError] = useState(null);
 	const [pokemons, setPokemons] = useState([]);
-	const [hasNext, setHasNext] = useState(null)
 
 	const getPokemons = useCallback(async () => {
 		setIsPending(true);

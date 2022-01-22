@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import useGetPokemons from './hooks/useGetPokemons';
 
 // components
@@ -8,21 +8,42 @@ import Card from './components/Card';
 import './App.css';
 
 function App() {
-	const { isPending, error, pokemons, hasNext } = useGetPokemons(
-		'https://pokeapi.co/api/v2/pokemon/'
+	const [url, setUrl] = useState('https://pokeapi.co/api/v2/pokemon/');
+	const { isPending, error, pokemons, hasNext } = useGetPokemons(url);
+
+	const loader = useRef(null);
+
+	const handleObserver = useCallback(
+		(entries) => {
+			const target = entries[0];
+
+			if (isPending) return;
+			if (target.isIntersecting && hasNext) {
+				setUrl(hasNext);
+			}
+		},
+		[hasNext, isPending]
 	);
+
+	useEffect(() => {
+		const option = {
+			root: null,
+			rootMargin: '200px',
+			threshold: 0,
+		};
+		const observer = new IntersectionObserver(handleObserver, option);
+		if (loader.current) observer.observe(loader.current);
+	}, [handleObserver]);
 
 	return (
 		<div className='App'>
 			<h1>Pokédex</h1>
 			<p>Search for a Pokémon by name or by its Pokédex number</p>
-			{isPending && <p>loading...</p>}
-			{error && <p>{error}</p>}
 			{pokemons && (
 				<div className='card-grid'>
 					{pokemons.map((pokemon) => (
 						<Card
-							key={pokemon.name}
+							key={pokemon.id}
 							name={pokemon.name}
 							img={
 								pokemon.sprites.other['official-artwork']
@@ -34,6 +55,8 @@ function App() {
 					))}
 				</div>
 			)}
+			{isPending ? <p>Loading...</p> : <div ref={loader} />}
+			{error && <p>{error}</p>}
 		</div>
 	);
 }
