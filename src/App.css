@@ -1,59 +1,60 @@
 :root {
 	--type-unknown: #68a090;
+	--type-bug: #a8b820;
+	--type-dark: #705848;
+	--type-dragon: #7038f8;
+	--type-electric: #f8d030;
+	--type-fairy: #EE99AC;
+	--type-fighting: #C03028;
+	--type-fire: #f08030;
+	--type-flying: #A890F0;
+	--type-ghost: #705898;
+	--type-grass: #78C850;
+	--type-ground: #E0C068;
+	--type-ice: #98D8D8;
+	--type-normal: #A8A878;
+	--type-poison: #A040A0;
+	--type-psychic: #F85888;
+	--type-rock: #B8A038;
+	--type-steel: #B8B8D0;
+	--type-water: #6890F0;
+
 	--type-unknown-light: #9DC1B7;
 	--type-unknown-dark: #44685E;
-	--type-bug: #a8b820;
 	--type-bug-light: #C6D16E;
 	--type-bug-dark: #6D7815;
-	--type-dark: #705848;
 	--type-dark-dark: #4924A1
 	--type-dark-light: #A27DFA;
-	--type-dragon: #7038f8;
 	--type-dragon-dark: #7038f8;
 	--type-dragon-light: #7038f8;
-	--type-electric: #f8d030;
 	--type-electric-dark: #A1871F;
 	--type-electric-light: #FAE078;
-	--type-fairy: #EE99AC;
 	--type-fairy-dark: #9B6470;
 	--type-fairy-light: #F4BDC9:
-	--type-fighting: #C03028:
 	--type-fighting-dark: #7D1F1A;
 	--type-fighting-light:#D67873;
-	--type-fire: #f08030;
 	--type-fire-dark: #9C531F;
 	--type-fire-light: #F5AC78;
-	--type-flying: #A890F0;
 	--type-flying-dark: #6D5E9C;
 	--type-flying-light: #C6B7F5;
-	--type-ghost: #705898;
 	--type-ghost-dark: #6D5E9C;
 	--type-ghost-light: #C6B7F5;
-	--type-grass: #78C850;
 	--type-grass-dark: #4E8234;
 	--type-grass-light: #A7DB8D;
-	--type-ground: #E0C068;
 	--type-ground-dark: #927D44;
 	--type-ground-light: #EBD69D;
-	--type-ice: #98D8D8;
 	--type-ice-dark: #638D8D;
 	--type-ice-light: #BCE6E6;
-	--type-normal: #A8A878;
 	--type-normal-dark: #6D6D4E;
 	--type-normal-light: #C6C6A7;
-	--type-poison: #A040A0;
 	--type-poison-dark: #682A68;
 	--type-poison-light: #C183C1;
-	--type-psychic: #F85888;
 	--type-rock-dark: #A13959;
 	--type-rock-light: #FA92B2;
-	--type-rock: #B8A038;
 	--type-rock-dark: #786824;
 	--type-rock-light: #D1C17D;
-	--type-steel: #B8B8D0;
 	--type-steel-dark: #787887;
 	--type-steel-light: #D1D1E0;
-	--type-water: #6890F0;
 	--type-water-dark: #445E9C;
 	--type-water-light: #9DB7F5;
 }
@@ -64,9 +65,6 @@
 	align-items:center;
 }
 
-.App p {
-	color: #4a4d54;
-}
 
 .card-grid {
 	display: flex;
