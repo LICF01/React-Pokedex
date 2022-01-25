@@ -15,8 +15,8 @@ const SearchBar = ({ placeholder, url, searched }) => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<label>
+		<form className='search-form' onSubmit={handleSubmit}>
+			<div className='search-input'>
 				<input
 					type='text'
 					name='search'
@@ -24,7 +24,8 @@ const SearchBar = ({ placeholder, url, searched }) => {
 					value={searchValue}
 					onChange={(e) => setSearchValue(e.target.value)}
 				/>
-			</label>
+				<i class='fas fa-search'></i>
+			</div>
 		</form>
 	);
 };

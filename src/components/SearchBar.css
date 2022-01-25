@@ -1,0 +1,26 @@
+.search-input {
+	position: relative;
+}
+
+.search-input input {
+	border: none;
+	background-color: #eaeaec;
+	padding: 0.5rem 2rem;
+	border-radius: 16px;
+	font-size: 1rem;
+	width: 30rem;
+	transition: all 0.1s ease-in-out;
+}
+
+.search-input i {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 20px;
+	color: #abb1b9;
+}
+
+.search-input input:focus {
+	border: none;
+	box-shadow: 0px 0px 10px 0.5px #ec574c;
+}

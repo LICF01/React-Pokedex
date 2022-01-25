@@ -10,8 +10,11 @@ import './App.css';
 
 function App() {
 	const [url, setUrl] = useState('https://pokeapi.co/api/v2/pokemon/');
-	const [searched, setSearched] = useState(false)
-	const { isPending, error, pokemons, hasNext } = useGetPokemons(url, searched);
+	const [searched, setSearched] = useState(false);
+	const { isPending, error, pokemons, hasNext } = useGetPokemons(
+		url,
+		searched
+	);
 
 	const loader = useRef(null);
 
@@ -39,9 +42,17 @@ function App() {
 
 	return (
 		<div className='App'>
-			<h1>Pokédex</h1>
-			<p>Search for a Pokémon by name or by its Pokédex number</p>
-			<SearchBar placeholder='Search for a pokemon' url={setUrl} searched={setSearched}/>
+			<div className='top'>
+				<h1 className='title'>Pokédex</h1>
+
+				<div className='search'>
+					<SearchBar
+						placeholder='Search for a Pokémon by name or by its number'
+						url={setUrl}
+						searched={setSearched}
+					/>
+				</div>
+			</div>
 			{pokemons && (
 				<div className='card-grid'>
 					{pokemons.map((pokemon) => (

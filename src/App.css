@@ -65,6 +65,22 @@
 	align-items:center;
 }
 
+.top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width:100%;
+	max-width: 90vw;
+}
+
+.title {
+	color: #EC574C;
+	margin-left: 10rem;
+}
+
+.search {
+	margin-right: 10rem;
+}
 
 .card-grid {
 	display: flex;
@@ -73,3 +89,4 @@
 	max-width: 90vw;
 	
 }
+
