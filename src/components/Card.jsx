@@ -1,7 +1,7 @@
 // styles
 import './Card.css';
 
-const Card = ({ img, name, number, types}) => {
+const Card = ({ img, name, number, types }) => {
 	return (
 		<div
 			className='card'
@@ -13,12 +13,25 @@ const Card = ({ img, name, number, types}) => {
 				<img src={img} alt={`${name} card`} />
 			</div>
 			<div className='card-info'>
+				<p className='card-name'>{name}</p>
 				<div className='pokemon-types'>
 					{types.map((type) => (
-						<p key={type.type.name}>{type.type.name}</p>
+						<div>
+							<p
+								className='pokemon-type-name'
+								key={type.type.name}
+							>
+								{type.type.name}
+							</p>
+							<div
+								className='pokemon-type-icon'
+								style={{
+									backgroundImage: `url(/img/${type.type.name}_Type_Icon.svg)`,
+								}}
+							></div>
+						</div>
 					))}
 				</div>
-				<p className='card-name'>{name}</p>
 				<p className='card-number'>{String(number).padStart(3, 0)}</p>
 			</div>
 		</div>
