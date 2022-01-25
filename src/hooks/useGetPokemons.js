@@ -16,13 +16,18 @@ function useGetPokemons(url) {
 			}
 			const data = await res.json();
 
-			for await (const pokemon of data.results) {
-				const res = await fetch(pokemon.url);
-				const data = await res.json();
-				setPokemons((pokemons) => [...pokemons, data]);
+			if (data.results) {
+				for await (const pokemon of data.results) {
+					const res = await fetch(pokemon.url);
+					const data = await res.json();
+					setPokemons((pokemons) => [...pokemons, data]);
+				}
+				setHasNext(data.next);
+			} else {
+				setPokemons([data])
+				setHasNext(null);
 			}
 
-			setHasNext(data.next);
 			setIsPending(false);
 			setError(null);
 		} catch (error) {

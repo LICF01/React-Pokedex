@@ -3,6 +3,7 @@ import useGetPokemons from './hooks/useGetPokemons';
 
 // components
 import Card from './components/Card';
+import SearchBar from './components/SearchBar';
 
 // styles
 import './App.css';
@@ -18,7 +19,7 @@ function App() {
 			const target = entries[0];
 
 			if (isPending) return;
-			if (target.isIntersecting && hasNext) {
+			if (target.isIntersecting && hasNext !== null) {
 				setUrl(hasNext);
 			}
 		},
@@ -39,6 +40,7 @@ function App() {
 		<div className='App'>
 			<h1>Pokédex</h1>
 			<p>Search for a Pokémon by name or by its Pokédex number</p>
+			<SearchBar placeholder='Search for a pokemon' search={setUrl}/>
 			{pokemons && (
 				<div className='card-grid'>
 					{pokemons.map((pokemon) => (
