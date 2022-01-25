@@ -1,12 +1,17 @@
 import { useState } from 'react';
 import './SearchBar.css';
 
-const SearchBar = ({ placeholder, search }) => {
+const SearchBar = ({ placeholder, url, searched }) => {
 	const [searchValue, setSearchValue] = useState('');
 
 	const handleSubmit = (e) => {
-		e.preventDefault()
-		search(`https://pokeapi.co/api/v2/pokemon/${searchValue}/`)
+		e.preventDefault();
+		if (!searchValue) {
+			url(`https://pokeapi.co/api/v2/pokemon/`);
+			return;
+		}
+		searched(true);
+		url(`https://pokeapi.co/api/v2/pokemon/${searchValue}/`);
 	};
 
 	return (
