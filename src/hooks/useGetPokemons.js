@@ -46,7 +46,7 @@ function useGetPokemons(url, searched, setSearched) {
 			setError(error.message);
 			setIsPending(false);
 		}
-	}, [url]);
+	}, [url, searched, pokemons, setSearched]);
 
 	useEffect(() => {
 		getPokemons();
