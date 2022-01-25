@@ -13,7 +13,8 @@ function App() {
 	const [searched, setSearched] = useState(false);
 	const { isPending, error, pokemons, hasNext } = useGetPokemons(
 		url,
-		searched
+		searched,
+		setSearched
 	);
 
 	const loader = useRef(null);
