@@ -87,6 +87,26 @@
 	justify-content: center;
 	flex-wrap: wrap;
 	max-width: 90vw;
-	
+	width: 100%
 }
 
+
+
+@media screen and (max-device-width: 550px) {
+.top {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+}
+
+
+.title {
+	font-size: 3rem;
+	color: #EC574C;
+	margin: 1rem 0;
+}
+
+.search {
+	margin-right: 0;
+}
+}

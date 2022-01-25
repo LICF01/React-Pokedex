@@ -49,8 +49,6 @@
 	.card {
 		width: 100%;
 		display: flex;
-		/* justify-content: space-around; */
-		/* align-items: center; */
 		border-radius: 1.5rem;
 		padding: 0.5rem 0.5rem;
 		margin: 0.5rem;
