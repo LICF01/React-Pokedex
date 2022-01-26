@@ -7,11 +7,16 @@ const SearchBar = ({ placeholder, url }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
 		if (!searchValue) {
 			url(`https://pokeapi.co/api/v2/pokemon/`);
 			return;
 		}
-		url(`https://pokeapi.co/api/v2/pokemon/${searchValue}/`);
+
+		// check for case and trim leading zeros
+		let value = searchValue.toLowerCase().replace(/^0+/, '');
+
+		url(`https://pokeapi.co/api/v2/pokemon/${value}/`);
 	};
 
 	return (
