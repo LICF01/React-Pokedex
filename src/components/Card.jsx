@@ -16,19 +16,16 @@ const Card = ({ img, name, number, types }) => {
 				<p className='card-name'>{name}</p>
 				<div className='pokemon-types'>
 					{types.map((type) => (
-						<div>
-							<p
-								className='pokemon-type-name'
-								key={type.type.name}
-							>
-								{type.type.name}
-							</p>
+						<div className='pokemon-type' key={type.type.name}>
 							<div
 								className='pokemon-type-icon'
 								style={{
 									backgroundImage: `url(/img/${type.type.name}_Type_Icon.svg)`,
 								}}
 							></div>
+							<p className='pokemon-type-name'>
+								{type.type.name}
+							</p>
 						</div>
 					))}
 				</div>

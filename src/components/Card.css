@@ -1,6 +1,8 @@
 .card {
+	display: flex;
+	flex-direction: column;
 	width: 200px;
-	padding: 1rem 0.5rem;
+	padding: 0.5rem 0.5rem 0 0.5rem;
 	margin: 0.5rem;
 	border-radius: 10%;
 }
@@ -14,18 +16,16 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: space-between;
+	height: 100%;
 }
 
 .card-name {
-	font-weight: 500;
+	font-weight: 700;
+	font-size: 2rem;
 	text-transform: capitalize;
-	font-size: 1.3rem;
 	margin-top: 0;
-	margin-bottom: 5px;
-}
-
-.pokemon-type-icon {
-	display: none;
+	margin-bottom: 1rem;
 }
 
 .card-number {
@@ -34,21 +34,33 @@
 }
 
 .pokemon-types {
-	display: flex;
 	text-transform: capitalize;
+}
+
+.pokemon-type {
+	display: flex;
+	align-items: center;
+	background-color: rgba(255, 255, 255, 0.3);
+	border-radius: 16px;
+	margin: 0 5px;
+	margin-bottom: 10px;
+	padding: 0 5px 0 1px;
 }
 
 .pokemon-types p {
 	margin: 5px;
-	padding: 5px 20px;
-	background-color: rgba(255, 255, 255, 0.3);
-	border-radius: 16px;
+}
+
+.pokemon-type-icon {
+	display: inline-block;
+	height: 2rem;
+	width: 2rem;
 }
 
 @media screen and (max-device-width: 600px) {
 	.card {
+		flex-direction: row;
 		width: 100%;
-		display: flex;
 		border-radius: 1.5rem;
 		padding: 0rem 0.5rem;
 		margin: 0.5rem 1.5rem;
@@ -72,23 +84,11 @@
 	}
 
 	.card-name {
-		font-weight: 700;
 		font-size: 2.5rem;
 	}
 
 	.pokemon-types {
 		display: flex;
-	}
-
-	.pokemon-type-name {
-		display: none;
-	}
-
-	.pokemon-type-icon {
-		display: block;
-		height: 2rem;
-		width: 2rem;
-		margin-top: 10px;
 	}
 
 	.card-number {

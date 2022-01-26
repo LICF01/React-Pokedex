@@ -53,6 +53,7 @@ function App() {
 								<div
 									ref={lastPokemonLoaded}
 									className='ref-container'
+										key={pokemon.id}
 								>
 									<Card
 										key={pokemon.id}
