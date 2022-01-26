@@ -10,7 +10,7 @@ import './App.css';
 
 function App() {
 	const [url, setUrl] = useState('https://pokeapi.co/api/v2/pokemon/');
-	const { isLoading, error, pokemons, pokemon, hasNext } = useGetPokemons(url);
+	const { isLoading, error, pokemons, hasNext } = useGetPokemons(url);
 
 	const observer = useRef();
 
@@ -45,7 +45,7 @@ function App() {
 					/>
 				</div>
 			</div>
-			{(pokemons || pokemon) && (
+			{pokemons && (
 				<div className='card-grid'>
 					{pokemons.map((pokemon, index) => {
 						if (pokemons.length === index + 1) {

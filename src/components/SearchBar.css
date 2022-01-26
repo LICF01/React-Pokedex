@@ -1,8 +1,12 @@
+.search {
+	width: 100%;
+}
 .search-input {
 	position: relative;
 }
 
 .search-input input {
+	box-sizing: border-box;
 	border: none;
 	background-color: #eaeaec;
 	padding: 0.5rem 2rem;
@@ -30,7 +34,7 @@
 		padding: 1.2rem 2rem;
 		border-radius: 16px;
 		font-size: 1rem;
-		width: 25rem;
+		width: 100%;
 		transition: all 0.1s ease-in-out;
 	}
 
