@@ -71,22 +71,19 @@
 	justify-content: space-between;
 	width:100%;
 	max-width: 90vw;
+	margin: 1.5rem 0;
 }
 
 .title {
-	color: #EC574C;
-	margin-left: 10rem;
-}
 
-.search {
-	margin-right: 10rem;
+	font-size: 3rem;
+	color: #EC574C;
 }
 
 .card-grid {
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
-	max-width: 90vw;
 	width: 100%
 }
 
@@ -96,8 +93,17 @@
 }
 
 
+@media screen and (min-device-width: 700px) {
+.top {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+}
 
-@media screen and (max-device-width: 550px) {
+
+
+@media screen and (max-device-width: 699px) {
 .top {
 	display: flex;
 	flex-direction: column;
@@ -106,7 +112,6 @@
 
 
 .title {
-	font-size: 3rem;
 	color: #EC574C;
 	margin: 1rem 0;
 }
@@ -114,4 +119,7 @@
 .search {
 	margin-right: 0;
 }
+
 }
+
+
