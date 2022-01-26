@@ -1,7 +1,8 @@
 import { useState } from 'react';
+
 import './SearchBar.css';
 
-const SearchBar = ({ placeholder, url, searched }) => {
+const SearchBar = ({ placeholder, url }) => {
 	const [searchValue, setSearchValue] = useState('');
 
 	const handleSubmit = (e) => {
@@ -10,7 +11,6 @@ const SearchBar = ({ placeholder, url, searched }) => {
 			url(`https://pokeapi.co/api/v2/pokemon/`);
 			return;
 		}
-		searched(true);
 		url(`https://pokeapi.co/api/v2/pokemon/${searchValue}/`);
 	};
 
@@ -24,7 +24,7 @@ const SearchBar = ({ placeholder, url, searched }) => {
 					value={searchValue}
 					onChange={(e) => setSearchValue(e.target.value)}
 				/>
-				<i class='fas fa-search'></i>
+				<i className='fas fa-search'></i>
 			</div>
 		</form>
 	);

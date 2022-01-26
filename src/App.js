@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import useGetPokemons from './hooks/useGetPokemons';
 
 // components
@@ -10,36 +10,28 @@ import './App.css';
 
 function App() {
 	const [url, setUrl] = useState('https://pokeapi.co/api/v2/pokemon/');
-	const [searched, setSearched] = useState(false);
-	const { isPending, error, pokemons, hasNext } = useGetPokemons(
-		url,
-		searched,
-		setSearched
-	);
+	const { isLoading, error, pokemons, pokemon, hasNext } = useGetPokemons(url);
 
-	const loader = useRef(null);
+	const observer = useRef();
 
-	const handleObserver = useCallback(
-		(entries) => {
-			const target = entries[0];
+	const lastPokemonLoaded = useCallback(
+		(node) => {
+			// Check if data is loading to prevent api to be called constantly
+			if (isLoading) return;
+			// Check if there is already a previus ref element and disconnects it to set the new one
+			if (observer.current) observer.current.disconnect();
 
-			if (isPending) return;
-			if (target.isIntersecting && hasNext !== null) {
-				setUrl(hasNext);
-			}
+			observer.current = new IntersectionObserver((entries) => {
+				if (entries[0].isIntersecting && hasNext) {
+					setUrl(hasNext);
+				}
+			});
+
+			// sets the new element that will be observed
+			if (node) observer.current.observe(node);
 		},
-		[hasNext, isPending]
+		[hasNext, isLoading]
 	);
-
-	useEffect(() => {
-		const option = {
-			root: null,
-			rootMargin: '200px',
-			threshold: 0,
-		};
-		const observer = new IntersectionObserver(handleObserver, option);
-		if (loader.current) observer.observe(loader.current);
-	}, [handleObserver]);
 
 	return (
 		<div className='App'>
@@ -50,27 +42,47 @@ function App() {
 					<SearchBar
 						placeholder='Search for a Pokémon by name or by its number'
 						url={setUrl}
-						searched={setSearched}
 					/>
 				</div>
 			</div>
-			{pokemons && (
+			{(pokemons || pokemon) && (
 				<div className='card-grid'>
-					{pokemons.map((pokemon) => (
-						<Card
-							key={pokemon.id}
-							name={pokemon.name}
-							img={
-								pokemon.sprites.other['official-artwork']
-									.front_default
-							}
-							number={pokemon.id}
-							types={pokemon.types}
-						/>
-					))}
+					{pokemons.map((pokemon, index) => {
+						if (pokemons.length === index + 1) {
+							return (
+								<div ref={lastPokemonLoaded}>
+									<Card
+										key={pokemon.id}
+										name={pokemon.name}
+										img={
+											pokemon.sprites.other[
+												'official-artwork'
+											].front_default
+										}
+										number={pokemon.id}
+										types={pokemon.types}
+									/>{' '}
+								</div>
+							);
+						} else {
+							return (
+								<Card
+									key={pokemon.id}
+									name={pokemon.name}
+									img={
+										pokemon.sprites.other[
+											'official-artwork'
+										].front_default
+									}
+									number={pokemon.id}
+									types={pokemon.types}
+								/>
+							);
+						}
+					})}
 				</div>
 			)}
-			{isPending ? <p>Loading...</p> : <div ref={loader} />}
+			{isLoading && <p>Loading...</p>}
 			{error && <p>{error}</p>}
 		</div>
 	);
