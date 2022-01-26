@@ -70,7 +70,7 @@
 		margin: 0.5rem 1.5rem;
 	}
 	.card-img {
-		margin: 0 1.5rem;
+		margin: 0 2rem;
 	}
 
 	.card-img img {
@@ -101,5 +101,11 @@
 		margin: 0;
 		position: absolute;
 		writing-mode: vertical-rl;
+	}
+}
+
+@media screen and (max-device-width: 500px) {
+	.card-img {
+		margin: 0 0.2rem;
 	}
 }
