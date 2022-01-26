@@ -50,7 +50,10 @@ function App() {
 					{pokemons.map((pokemon, index) => {
 						if (pokemons.length === index + 1) {
 							return (
-								<div ref={lastPokemonLoaded}>
+								<div
+									ref={lastPokemonLoaded}
+									className='ref-container'
+								>
 									<Card
 										key={pokemon.id}
 										name={pokemon.name}

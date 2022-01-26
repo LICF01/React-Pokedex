@@ -90,6 +90,11 @@
 	width: 100%
 }
 
+.ref-container {
+	width: 100%;
+	display: flex;
+}
+
 
 
 @media screen and (max-device-width: 550px) {
