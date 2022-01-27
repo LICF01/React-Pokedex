@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState} from 'react';
 
 function useGetPokemons(url) {
 	const [isLoading, setIsLoading] = useState(false);
@@ -6,14 +6,14 @@ function useGetPokemons(url) {
 	const [pokemons, setPokemons] = useState([]);
 	const [hasNext, setHasNext] = useState(null);
 
-	const previousPokemons = useRef(pokemons)
-
 	useEffect(() => {
+		// this need to be associated with the fetch request to be aborted
+		const controller = new AbortController();
+
 		const getPokemons = async () => {
 			setIsLoading(true);
-			if (previousPokemons.length === 1) setPokemons([]);
 			try {
-				const res = await fetch(url);
+				const res = await fetch(url, { signal: controller.signal });
 
 				if (!res.ok) {
 					// TODO: Implement a modal window
@@ -41,12 +41,21 @@ function useGetPokemons(url) {
 				setIsLoading(false);
 				setError(null);
 			} catch (error) {
-				setError(error.message);
-				setIsLoading(false);
+				if (error.name === 'AbortError') {
+					console.log('The fetch was aborted');
+				} else {
+					setError(error.message);
+					setIsLoading(false);
+				}
 			}
 		};
 
 		getPokemons();
+
+		// cleanup function
+		return () => {
+			controller.abort();
+		};
 	}, [url]);
 
 	return { isLoading, error, pokemons, hasNext };
