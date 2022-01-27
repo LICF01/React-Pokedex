@@ -2,12 +2,16 @@
 import './Card.css';
 
 const Card = ({ img, name, number, types }) => {
+	const handleClick = () => {};
+
 	return (
 		<div
 			className='card'
 			style={{
 				backgroundColor: `var(--type-${types[0].type.name})`,
+				boxShadow: `0 0 10px var(--type-${types[0].type.name})`,
 			}}
+			onClick={handleClick}
 		>
 			<div className='card-img'>
 				<img src={img} alt={`${name} card`} />

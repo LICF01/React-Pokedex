@@ -1,0 +1,38 @@
+.top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	max-width: 95vw;
+	margin: 1.5rem auto;
+}
+
+.title {
+	font-size: 3rem;
+	color: #ec574c;
+}
+
+@media screen and (min-device-width: 700px) {
+	.top {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+@media screen and (max-device-width: 699px) {
+	.top {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.title {
+		color: #ec574c;
+		margin: 1rem 0;
+	}
+
+	.search {
+		margin-right: 0;
+	}
+}
