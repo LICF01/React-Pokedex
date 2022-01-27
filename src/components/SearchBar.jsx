@@ -1,22 +1,29 @@
 import { useState } from 'react';
+import { getPokemons } from '../api';
 
 import './SearchBar.css';
 
-const SearchBar = ({ placeholder, url }) => {
+const SearchBar = ({ placeholder, setPokemon, fetchPokemons, setHasNext }) => {
 	const [searchValue, setSearchValue] = useState('');
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		if (!searchValue) {
-			url(`https://pokeapi.co/api/v2/pokemon/`);
+			setPokemon([]);
+			fetchPokemons();
 			return;
 		}
 
 		// check for case and trim leading zeros
 		let value = searchValue.toLowerCase().replace(/^0+/, '');
 
-		url(`https://pokeapi.co/api/v2/pokemon/${value}/`);
+		const pokemon = await getPokemons(
+			`https://pokeapi.co/api/v2/pokemon/${value}/`
+		);
+
+		setPokemon([pokemon]);
+		setHasNext(null);
 	};
 
 	return (

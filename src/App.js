@@ -1,5 +1,5 @@
-import { useState, useCallback, useRef } from 'react';
-import useGetPokemons from './hooks/useGetPokemons';
+import { useState, useCallback, useRef, useEffect } from 'react';
+import { getPokemons } from './api';
 
 // components
 import Card from './components/Card';
@@ -9,8 +9,35 @@ import SearchBar from './components/SearchBar';
 import './App.css';
 
 function App() {
-	const [url, setUrl] = useState('https://pokeapi.co/api/v2/pokemon/');
-	const { isLoading, error, pokemons, hasNext } = useGetPokemons(url);
+	const [pokemonsData, setPokemonsData] = useState([]);
+	const [hasNext, setHasNext] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState(false);
+
+	const fetchPokemons = async (
+		url = 'https://pokeapi.co/api/v2/pokemon?limit=40'
+	) => {
+		try {
+			setIsLoading(true);
+			console.log(url);
+			const pokemons = await getPokemons(url);
+			const promises = pokemons.results.map(async (pokemon) => {
+				return await getPokemons(pokemon.url);
+			});
+
+			const data = await Promise.all(promises);
+
+			setHasNext(pokemons.next);
+			setPokemonsData((pokemons) => [...pokemons, ...data]);
+			setIsLoading(false);
+		} catch (error) {
+			setError(error);
+		}
+	};
+
+	useEffect(() => {
+		fetchPokemons();
+	}, []);
 
 	const observer = useRef();
 
@@ -23,14 +50,14 @@ function App() {
 
 			observer.current = new IntersectionObserver((entries) => {
 				if (entries[0].isIntersecting && hasNext) {
-					setUrl(hasNext);
+					fetchPokemons(hasNext);
 				}
 			});
 
 			// sets the new element that will be observed
 			if (node) observer.current.observe(node);
 		},
-		[hasNext, isLoading]
+		[isLoading, hasNext]
 	);
 
 	return (
@@ -40,20 +67,22 @@ function App() {
 
 				<div className='search'>
 					<SearchBar
-						placeholder='Search for a Pokémon by name or by its number'
-						url={setUrl}
+						placeholder='Search for a Pokémon by name or number'
+						fetchPokemons={fetchPokemons}
+						setPokemon={setPokemonsData}
+						setHasNext={setHasNext}
 					/>
 				</div>
 			</div>
-			{pokemons && (
+			{pokemonsData && (
 				<div className='card-grid'>
-					{pokemons.map((pokemon, index) => {
-						if (pokemons.length === index + 1) {
+					{pokemonsData.map((pokemon, index) => {
+						if (pokemonsData.length === index + 1) {
 							return (
 								<div
 									ref={lastPokemonLoaded}
 									className='ref-container'
-										key={pokemon.id}
+									key={pokemon.id}
 								>
 									<Card
 										key={pokemon.id}
