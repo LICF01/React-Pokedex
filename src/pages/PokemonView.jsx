@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPokemons } from '../api.js';
 
+import Stats from '../components/Stats';
+
 // styles
 import './PokemonView.css';
 
@@ -32,45 +34,51 @@ const PokemonView = () => {
 	return (
 		<>
 			{pokemon && (
-				<div
-					className='view-header'
-					style={{
-						backgroundColor: `var(--type-${pokemon.types[0].type.name})`,
-					}}
-				>
-					<div className='header-info'>
-						<p className='header-info__number'>
-							{String(pokemon.id).padStart(3, 0)}
-						</p>
-						<p className='header-info__name'>{pokemon.name}</p>
-						<div className='header-info__types'>
-							{pokemon.types.map((type) => (
-								<div
-									className='header-types'
-									key={type.type.name}
-								>
+				<>
+					<div
+						className='view-header'
+						style={{
+							backgroundColor: `var(--type-${pokemon.types[0].type.name})`,
+						}}
+					>
+						<div className='header-info'>
+							<p className='header-info__number'>
+								{String(pokemon.id).padStart(3, 0)}
+							</p>
+							<p className='header-info__name'>{pokemon.name}</p>
+							<div className='header-info__types'>
+								{pokemon.types.map((type) => (
 									<div
-										className='header-type-icon'
-										style={{
-											backgroundImage: `url(/img/${type.type.name}_Type_Icon.svg)`,
-										}}
-									></div>
-									<p className='header-type-name'>
-										{type.type.name}
-									</p>
-								</div>
-							))}
+										className='header-types'
+										key={type.type.name}
+									>
+										<div
+											className='header-type-icon'
+											style={{
+												backgroundImage: `url(/img/${type.type.name}_Type_Icon.svg)`,
+											}}
+										></div>
+										<p className='header-type-name'>
+											{type.type.name}
+										</p>
+									</div>
+								))}
+							</div>
 						</div>
+						<img
+							className='header-image'
+							src={
+								pokemon.sprites.other['official-artwork']
+									.front_default
+							}
+							alt={`${name} view`}
+						/>
 					</div>
-					<img
-						className='header-image'
-						src={
-							pokemon.sprites.other['official-artwork']
-								.front_default
-						}
-						alt={`${name} view`}
+					<Stats
+						stats={pokemon.stats}
+						type={pokemon.types[0].type.name}
 					/>
-				</div>
+				</>
 			)}
 		</>
 	);

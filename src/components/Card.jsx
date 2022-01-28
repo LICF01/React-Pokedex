@@ -1,8 +1,15 @@
+import { useNavigate } from "react-router-dom";
+
 // styles
 import './Card.css';
 
 const Card = ({ img, name, number, types }) => {
-	const handleClick = () => {};
+
+  let navigate = useNavigate();
+
+	const handleClick = () => {
+          navigate(`/pokemon/${name}`);
+	};
 
 	return (
 		<div
