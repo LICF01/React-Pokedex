@@ -1,0 +1,46 @@
+.view-header {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	height: 35vh;
+}
+
+.header-info {
+	margin-left: 20px;
+}
+
+.header-info__number {
+	margin: 0;
+}
+
+.header-info__name {
+	font-size: 1.5rem;
+	text-transform: capitalize;
+	margin: 0.5rem 0;
+}
+
+.header-types {
+	display: flex;
+	align-items: center;
+	width: fit-content;
+	background-color: rgba(255, 255, 255, 0.3);
+	border-radius: 16px;
+	padding: 0 10px 0 1px;
+	font-size: 0.8rem;
+}
+
+.header-type-icon {
+	display: inline-block;
+	height: 1.3rem;
+	width: 1.3rem;
+}
+
+.header-type-name {
+	margin: 5px;
+}
+
+.header-image {
+	height: 9rem;
+	margin-left: 20px;
+}
