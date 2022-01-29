@@ -19,7 +19,6 @@ const PokemonsGrid = () => {
 	) => {
 		try {
 			setIsLoading(true);
-			console.log(url);
 			const pokemons = await getPokemons(url);
 			const promises = pokemons.results.map(async (pokemon) => {
 				return await getPokemons(pokemon.url);

@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getPokemons } from '../api.js';
-
-import Stats from '../components/Stats';
+import { getPokemons, getSpecieData } from '../api.js';
 
 // styles
 import './PokemonView.css';
@@ -10,6 +8,7 @@ import './PokemonView.css';
 const PokemonView = () => {
 	let { name } = useParams();
 	const [pokemon, setPokemon] = useState(null);
+	const [aditionalData, setAditionalData] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(false);
 
@@ -19,7 +18,6 @@ const PokemonView = () => {
 			const pokemonData = await getPokemons(
 				`https://pokeapi.co/api/v2/pokemon/${name}`
 			);
-			console.log(pokemonData);
 			setPokemon(pokemonData);
 			setIsLoading(false);
 		} catch (error) {
@@ -27,38 +25,50 @@ const PokemonView = () => {
 		}
 	};
 
+	const fetchSpecie = async () => {
+		try {
+			setIsLoading(true);
+			const aditionalData = await getSpecieData(name);
+			setAditionalData(aditionalData);
+			setIsLoading(false);
+		} catch (error) {
+			setError(error);
+		}
+
+	}
+
 	useEffect(() => {
 		fetchPokemon();
-	}, []);
+		fetchSpecie()
+	});
 
 	return (
 		<>
-			{pokemon && (
-				<>
+			{pokemon && aditionalData && (
 					<div
-						className='view-header'
+						className='view'
 						style={{
 							backgroundColor: `var(--type-${pokemon.types[0].type.name})`,
 						}}
 					>
-						<div className='header-info'>
-							<p className='header-info__number'>
+						<div className='view-info'>
+							<p className='view-info__number'>
 								{String(pokemon.id).padStart(3, 0)}
 							</p>
-							<p className='header-info__name'>{pokemon.name}</p>
-							<div className='header-info__types'>
+							<p className='view-info__name'>{pokemon.name}</p>
+							<div className='view-info__types'>
 								{pokemon.types.map((type) => (
 									<div
-										className='header-types'
+										className='view-type'
 										key={type.type.name}
 									>
 										<div
-											className='header-type-icon'
+											className='view-type-icon'
 											style={{
 												backgroundImage: `url(/img/${type.type.name}_Type_Icon.svg)`,
 											}}
 										></div>
-										<p className='header-type-name'>
+										<p className='view-type-name'>
 											{type.type.name}
 										</p>
 									</div>
@@ -66,20 +76,27 @@ const PokemonView = () => {
 							</div>
 						</div>
 						<img
-							className='header-image'
+							className='view-image'
 							src={
 								pokemon.sprites.other['official-artwork']
 									.front_default
 							}
 							alt={`${name} view`}
 						/>
+						<div className='view-details'>
+							<div className='view-description'>
+								<p>
+									{
+										aditionalData.flavor_text_entries[8]
+											.flavor_text
+									}
+								</p>
+							</div>
+						</div>
 					</div>
-					<Stats
-						stats={pokemon.stats}
-						type={pokemon.types[0].type.name}
-					/>
-				</>
 			)}
+			{isLoading && <p>Loading...</p>}
+			{error && <p>{error}</p>}
 		</>
 	);
 };
