@@ -108,3 +108,9 @@
 		max-width: 500px;
 	}
 }
+
+@media screen and (max-device-width: 1000px) {
+	.view {
+		height: 100vh;
+	}
+}
